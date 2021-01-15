@@ -1,0 +1,58 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kiwi-i/wallys-ui-fork/master/lib.lua", true))()
+local w = library:CreateWindow('Cheats')
+local x = library:CreateWindow("Misc")
+w:Section('HITBOX')
+
+_G.size = 5
+_G.togglesize = Vector3.new(_G.size,_G.size,_G.size)
+Players = game:GetService("Players")
+meta = getrawmetatable(game)
+id = meta.__index
+setreadonly(meta,false)
+local s = w:Slider("FOV", {
+   min = 1;
+   max = 45;
+   flag = 'fov'
+}, function(v)
+_G.size = v / 10
+_G.togglesize = Vector3.new(_G.size,_G.size,_G.size)
+end)
+_G.visible = true
+x:Bind("Hide GUI", {
+   flag = "Hide Gui";
+   kbonly = true;
+   default = Enum.KeyCode.P;
+}, function()
+   if _G.visible then
+       _G.visible = false
+       game.CoreGui.ScreenGui.Container.Visible = false
+   else
+       _G.visible = true
+       game.CoreGui.ScreenGui.Container.Visible = true
+   end
+end)
+for i,v in pairs (Players:GetPlayers()) do
+if v ~= Players.LocalPlayer then
+meta.__index = newcclosure(function(rc, ...)
+args = {...}
+if rc:IsA("Part") and tostring(rc) == "HumanoidRootPart"  and args[1] == "Size" then
+return Vector3.new(2,2.35,1)
+end
+return id(rc, ...)
+end)
+end
+end
+
+while wait() do
+    for i, v in pairs(Players:GetPlayers()) do
+        if v ~= Players.LocalPlayer and (Players.LocalPlayer.Team == nil or Players.LocalPlayer.Team ~= v.Team) and v.Character ~= nil then
+            for a, b in pairs(v.Character:GetChildren()) do
+                if b:IsA("Part") and b.Name == "HumanoidRootPart" then
+                    b.Size = _G.togglesize
+                    b.Transparency = 1
+                    b.CanCollide = false
+                end
+            end
+        end
+    end
+end
