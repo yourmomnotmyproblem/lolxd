@@ -51,6 +51,25 @@ local headTrans = 0.8
 local headColor = fromRGB(139, 26, 176)
 randomNum = random:NextInteger(1, 100)
 
+print("bypassing ac...")
+local acTick = tick()
+for i, v in pairs(getconnections(game:GetService("ScriptContext").Error)) do
+    acCheck1 = true
+    v:Disable()
+end
+
+local functions = {}
+for k, b in pairs(getgc()) do
+    if type(b) == constants[6] and getfenv(b).script ~= nil then
+        table.insert(functions, b)
+    end
+end
+for i, v in pairs(getconnections(game:GetService("LogService").MessageOut)) do
+    if isInTable(functions, v.Function) then
+        v:Disable()
+    end
+end
+
 local function isInTable(table, value)
     for i, v in pairs(table) do
         if v == value then
