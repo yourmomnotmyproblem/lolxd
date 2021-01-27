@@ -60,28 +60,6 @@ local function isInTable(table, value)
     return false
 end
 
-print("bypassing ac...")
-local acTick = tick()
-for i, v in pairs(getconnections(game:GetService("ScriptContext").Error)) do
-    acCheck1 = true
-    v:Disable()
-end
-if not acCheck1 or not constants then
-    localPlayer:Kick("script failed to load properly")
-    wait(9e9)
-end
-local functions = {}
-for k, b in pairs(getgc()) do
-    if type(b) == constants[6] and getfenv(b).script ~= nil then
-        table.insert(functions, b)
-    end
-end
-for i, v in pairs(getconnections(game:GetService("LogService").MessageOut)) do
-    if isInTable(functions, v.Function) then
-        v:Disable()
-    end
-end
-
 if KRNL_LOADED then
     print("Krnl version is messed up, but it's not my fault")
 end
