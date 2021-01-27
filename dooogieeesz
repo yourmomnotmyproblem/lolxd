@@ -45,7 +45,6 @@ local RunService = game:GetService("RunService")
 local runService = game:GetService("RunService")
 local team = {}
 local random = Random.new()
-local acCheck1
 local headSize = 10
 local headTrans = 0.8
 local headColor = fromRGB(139, 26, 176)
