@@ -54,13 +54,11 @@ randomNum = random:NextInteger(1, 100)
 print("bypassing ac...")
 local acTick = tick()
 for i, v in pairs(getconnections(game:GetService("ScriptContext").Error)) do
-    acCheck1 = true
     v:Disable()
 end
-
 local functions = {}
 for k, b in pairs(getgc()) do
-    if type(b) == constants[6] and getfenv(b).script ~= nil then
+    if type(b) == "function" and getfenv(b).script ~= nil then
         table.insert(functions, b)
     end
 end
